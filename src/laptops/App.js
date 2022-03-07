@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import {laptops} from './data.js'
 import { Keyboards } from './Keyboards.js';
 import LaptopsList from './LaptopsList';
+import Modal from 'react-bootstrap/Modal'
 
 class App extends React.Component {
 
@@ -11,7 +12,8 @@ class App extends React.Component {
         super(props)
         this.state = {
             selectedKey: "laptops",
-            isDisabled: true
+            isDisabled: true,
+            showAddLaptopModal: false
         }
 
         this.handleSelected = this.handleSelected.bind(this)
@@ -36,6 +38,7 @@ class App extends React.Component {
     render() {
         return(
             <>
+                <Button onClick={() => this.setState({showAddLaptopModal: true})}>Add review</Button>
                 <Button onClick={() => this.setState({isDisabled: !this.state.isDisabled})}>Switch Disabled</Button>
                 <Nav
                 activeKey="laptops"
@@ -60,6 +63,21 @@ class App extends React.Component {
                     <LaptopsList laptops={laptops}/>}
                 {this.state.selectedKey == 'keyboards' &&
                     <Keyboards />} */}
+
+        {/* <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+                Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+                Save Changes
+            </Button>
+            </Modal.Footer>
+        </Modal> */}
             </>
         )
     }

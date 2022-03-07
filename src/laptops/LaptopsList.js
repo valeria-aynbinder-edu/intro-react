@@ -1,12 +1,18 @@
 import React from 'react';
 import {Laptop} from './Laptop'
+import {reviews} from "./data.js";
+
 
 export default class LaptopsList extends React.Component {
 
+
+
     renderLaptop(laptop, index, laptops) {
+        // console.log(reviews)
+        let reviewsList = reviews.filter((elem) => elem.laptopId === laptop.Id);
         return (
             // <li key={laptop.Id}>
-                <Laptop key={laptop.Id} laptop={laptop} />
+                <Laptop key={laptop.Id} laptop={laptop} reviews={reviewsList} />
             // </li>
         )
     }
@@ -27,3 +33,4 @@ export default class LaptopsList extends React.Component {
         )
     }
 }
+

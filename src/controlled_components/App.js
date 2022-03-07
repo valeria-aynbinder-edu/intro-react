@@ -17,7 +17,7 @@ class App extends React.Component {
             <>
                 <NameForm />
                 <FlavorForm />
-                <Calculator />
+                {/* <Calculator />  */}
             </>
         )
     }

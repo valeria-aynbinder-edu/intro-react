@@ -13,7 +13,7 @@ export class NameForm extends React.Component {
   
     handleChange(event) {
         console.log(`Called handleChange with ${event.target.value}`)
-      this.setState({value: event.target.value});
+        this.setState({value: event.target.value});
     }
   
     handleSubmit(event) {

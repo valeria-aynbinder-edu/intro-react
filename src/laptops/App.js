@@ -1,6 +1,8 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav'
 import {laptops} from './data.js'
+import { Keyboards } from './Keyboards.js';
 import LaptopsList from './LaptopsList';
 
 class App extends React.Component {
@@ -8,7 +10,8 @@ class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectedKey: "laptops"
+            selectedKey: "laptops",
+            isDisabled: true
         }
 
         this.handleSelected = this.handleSelected.bind(this)
@@ -19,9 +22,21 @@ class App extends React.Component {
         this.setState({selectedKey: selectedKey})
     }
 
+    renderMainView() {
+        switch (this.state.selectedKey) {
+            case "laptops":
+                return <LaptopsList laptops={laptops}/>
+            case "keyboards":
+                return <Keyboards />
+            default:
+                return null
+        }
+    }
+
     render() {
         return(
             <>
+                <Button onClick={() => this.setState({isDisabled: !this.state.isDisabled})}>Switch Disabled</Button>
                 <Nav
                 activeKey="laptops"
                 onSelect={this.handleSelected} >
@@ -32,16 +47,19 @@ class App extends React.Component {
                         <Nav.Link eventKey="keyboards">Keyboards</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey="link-2">Link</Nav.Link>
+                        <Nav.Link eventKey="mouses">Mouses</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey="disabled" disabled>
+                        <Nav.Link eventKey="disabled" disabled={this.state.isDisabled}>
                         Disabled link
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
-                {this.state.selectedKey == 'laptops' &&
+                {this.renderMainView()}
+                {/* {this.state.selectedKey == 'laptops' &&
                     <LaptopsList laptops={laptops}/>}
+                {this.state.selectedKey == 'keyboards' &&
+                    <Keyboards />} */}
             </>
         )
     }

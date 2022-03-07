@@ -18,16 +18,21 @@ export class Laptop extends React.Component {
             <div>
                 <Title name={this.props.laptop.Product + " (" + this.props.laptop.Company + ")"}/>
                 <Price price={this.props.laptop.Price}/>
-                {   !this.state.displayMore &&
-                    <Nav.Link onClick={() => this.setState({displayMore: !this.state.displayMore})}>more...</Nav.Link>
-                }
+
+                    {/* <Nav.Link 
+                        onClick={() => this.setState({displayMore: !this.state.displayMore})}>
+                            more...
+                    </Nav.Link> */}
+                
                 {
                     this.state.displayMore &&
                     <LaptopDetails laptop={this.props.laptop}/>
                 }
-                {   this.state.displayMore &&
-                    <Nav.Link onClick={() => this.setState({displayMore: !this.state.displayMore})}>less...</Nav.Link>
-                }
+                
+                    <Nav.Link onClick={() => this.setState({displayMore: !this.state.displayMore})}>
+                        {this.state.displayMore ? "less..." : "more..."}
+                    </Nav.Link>
+                
             </div>
         )
     }

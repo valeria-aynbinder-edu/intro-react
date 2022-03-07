@@ -1,15 +1,21 @@
 import React from 'react';
 import {Laptop} from './Laptop'
-import {reviews} from "./data.js";
+// import {reviews} from "./data.js";
 
 
 export default class LaptopsList extends React.Component {
+
+    constructor(props) {
+        super(props)
+
+        this.renderLaptop = this.renderLaptop.bind(this)
+    }
 
 
 
     renderLaptop(laptop, index, laptops) {
         // console.log(reviews)
-        let reviewsList = reviews.filter((elem) => elem.laptopId === laptop.Id);
+        let reviewsList = this.props.reviews.filter((elem) => elem.laptopId === laptop.Id);
         return (
             // <li key={laptop.Id}>
                 <Laptop key={laptop.Id} laptop={laptop} reviews={reviewsList} />

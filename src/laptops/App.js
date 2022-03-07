@@ -1,22 +1,31 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav'
-import {laptops} from './data.js'
+import { AddReviewModal } from './AddReviewModal.js';
+import {laptops, reviews} from './data.js'
 import { Keyboards } from './Keyboards.js';
 import LaptopsList from './LaptopsList';
-import Modal from 'react-bootstrap/Modal'
+
 
 class App extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
+            reviews: reviews,
             selectedKey: "laptops",
             isDisabled: true,
-            showAddLaptopModal: false
+            
+            showAddLaptopModal: false,
+
+            title: "",
+            review: ""
+            
         }
 
         this.handleSelected = this.handleSelected.bind(this)
+        // this.handleClose = this.handleClose.bind(this)
+        this.submitReview = this.submitReview.bind(this)
     }
 
     handleSelected(selectedKey) {
@@ -27,12 +36,31 @@ class App extends React.Component {
     renderMainView() {
         switch (this.state.selectedKey) {
             case "laptops":
-                return <LaptopsList laptops={laptops}/>
+                return <LaptopsList laptops={laptops} reviews={this.state.reviews}/>
             case "keyboards":
                 return <Keyboards />
             default:
                 return null
         }
+    }
+
+    submitReview(new_title, new_text) {
+        console.log("submitReview")
+        this.state.reviews.push({
+            title: new_title, 
+            text: new_text, 
+            laptopId: 1,
+            rating: 3})
+        this.setState({
+            reviews: this.state.reviews.slice(),
+            showAddLaptopModal: false
+        })
+        console.log(this.state.reviews)
+    }
+
+
+    getOption(laptop) {
+        return(<option key={laptop.Id}>{laptop.Product}</option>)
     }
 
     render() {
@@ -64,20 +92,13 @@ class App extends React.Component {
                 {this.state.selectedKey == 'keyboards' &&
                     <Keyboards />} */}
 
-        {/* <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-            <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-                Close
-            </Button>
-            <Button variant="primary" onClick={handleClose}>
-                Save Changes
-            </Button>
-            </Modal.Footer>
-        </Modal> */}
+                    <AddReviewModal laptops={laptops} 
+                    show={this.state.showAddLaptopModal}
+                    onAddReviewClose={()=> this.setState({showAddLaptopModal: false})}
+                    onSubmit={this.submitReview}/>
+
+         {/* <Modal show={show} onHide={handleClose}> */}
+
             </>
         )
     }

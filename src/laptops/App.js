@@ -2,9 +2,11 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav'
 import { AddReviewModal } from './AddReviewModal.js';
-import {laptops, reviews} from './data.js'
-import { Keyboards } from './Keyboards.js';
+import { reviews} from './data.js'
+import { Stats } from './Stats.js';
 import LaptopsList from './LaptopsList';
+
+//axios.post(http://...../laptops, {data: {id: 1, name: "sdfsdf"}})
 
 
 class App extends React.Component {
@@ -35,10 +37,10 @@ class App extends React.Component {
 
     renderMainView() {
         switch (this.state.selectedKey) {
+            case "stats":
+                return <Stats />
             case "laptops":
-                return <LaptopsList laptops={laptops} reviews={this.state.reviews}/>
-            case "keyboards":
-                return <Keyboards />
+                return <LaptopsList reviews={this.state.reviews}/>
             default:
                 return null
         }
@@ -72,10 +74,10 @@ class App extends React.Component {
                 activeKey="laptops"
                 onSelect={this.handleSelected} >
                     <Nav.Item>
-                        <Nav.Link eventKey="laptops">Laptops</Nav.Link>
+                        <Nav.Link eventKey="stats">Statistics</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey="keyboards">Keyboards</Nav.Link>
+                        <Nav.Link eventKey="laptops">Laptops</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link eventKey="mouses">Mouses</Nav.Link>
@@ -92,10 +94,10 @@ class App extends React.Component {
                 {this.state.selectedKey == 'keyboards' &&
                     <Keyboards />} */}
 
-                    <AddReviewModal laptops={laptops} 
+                    {/* <AddReviewModal laptops={laptops} 
                     show={this.state.showAddLaptopModal}
                     onAddReviewClose={()=> this.setState({showAddLaptopModal: false})}
-                    onSubmit={this.submitReview}/>
+                    onSubmit={this.submitReview}/> */}
 
          {/* <Modal show={show} onHide={handleClose}> */}
 
